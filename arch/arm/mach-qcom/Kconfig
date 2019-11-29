@@ -32,6 +32,7 @@ config ARCH_MSM8974
 config ARCH_MSM8916
 	bool "Enable support for MSM8916"
 	select HAVE_ARM_ARCH_TIMER
+	select IOMMU_DMA
 
 config ARCH_MDM9615
 	bool "Enable support for MDM9615"
