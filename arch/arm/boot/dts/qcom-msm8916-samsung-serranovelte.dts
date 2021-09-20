@@ -1,0 +1,2 @@
+#include "arm64/qcom/msm8916-samsung-serranovelte.dts"
+#include "qcom-msm8916-no-psci.dtsi"
