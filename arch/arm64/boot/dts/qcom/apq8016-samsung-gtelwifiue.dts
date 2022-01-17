@@ -48,6 +48,26 @@
 		};
 	};
 
+	i2c-bl {
+		status = "okay";
+		compatible = "i2c-gpio";
+		sda-gpios = <&msmgpio 24 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+		scl-gpios = <&msmgpio 25 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&bl_i2c_default>;
+
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		backlight@31 {
+			status = "okay";
+			compatible = "richtek,rt8555-backlight";
+			gpio = <&msmgpio 69 GPIO_ACTIVE_HIGH>;
+			reg = <0x31>;
+		};
+	};
+
 	reg_vdd_tsp: regulator-vdd-tsp {
 		compatible = "regulator-fixed";
 		regulator-name = "vdd_tsp";
@@ -373,8 +393,16 @@
 		bias-disable;
 	};
 
-	jack_default: jack-default {
-		pins = "gpio110";
+	bl_en_default: reg-lcd-en-default {
+		pins = "gpio69";
+		function = "gpio";
+
+		drive-strength = <2>;
+		bias-disable;
+	};
+
+	bl_i2c_default: muic-i2c-default {
+		pins = "gpio24", "gpio25";
 		function = "gpio";
 
 		drive-strength = <2>;
@@ -387,6 +415,15 @@
 
 		drive-strength = <2>;
 		bias-pull-up;
+	};
+
+
+	jack_default: jack-default {
+		pins = "gpio110";
+		function = "gpio";
+
+		drive-strength = <2>;
+		bias-disable;
 	};
 
 	muic_int_default: muic-int-default {
